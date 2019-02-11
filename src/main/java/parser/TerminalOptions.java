@@ -7,19 +7,11 @@ public class TerminalOptions {
     private CommandLineParser parser;
     private CommandLine commandLine;
 
-
     public TerminalOptions(String[] terminalArguments) {
         options = new Options()
-                .addOption(null, "download", false, "Download and generate full maps")
-                .addOption(null, "heatmap", false, "Create heat map")
-                .addOption(null, "latitude", true, "Latitude of center of down left square")
-                .addOption(null, "longitude", true, "Longitude of center of down left square")
-                .addOption(null, "maps", true, "Amount of full maps")
-                .addOption(null, "width", true, "Amount of part maps in width for full map")
-                .addOption(null, "height", true, "Amount of part maps in height for full map")
-                .addOption(null, "path", true, "Directory path")
-                .addOption(null, "maxacc", true, "Max acceleration")
-                .addOption(null, "key", true, "Google api key");
+                .addOption(null, "strava", false, "Read strava mapas")
+                .addOption(null, "wavelo", false, "Read wavelo maps")
+                .addOption(null, "path", true, "Directory path");
         parser = new DefaultParser();
         try {
             commandLine = parser.parse(options, terminalArguments);

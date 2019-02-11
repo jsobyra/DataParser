@@ -48,9 +48,9 @@ public class ParsingHelper {
         double longitude = getStandardLongitude(stringLocation);
         LocalDateTime time = getStandardTime(stringLocation);
         if(WaveloLocation.class.equals(classLocation))
-            return new WaveloLocation(latitude, longitude, time);
+            return new WaveloLocation(latitude, longitude, time.toString());
         else if(StravaLocation.class.equals(classLocation))
-            return new StravaLocation(latitude, longitude, time);
+            return new StravaLocation(latitude, longitude, time.toString());
         else return null;
     }
 
@@ -76,7 +76,7 @@ public class ParsingHelper {
     }
 
     public static long calculateTime(Location x, Location y) {
-        return LocalDateTime.from(x.getTime()).until(y.getTime(), ChronoUnit.SECONDS);
+        return LocalDateTime.from(LocalDateTime.parse(x.getTime(), DateTimeFormatter.ISO_DATE_TIME)).until(LocalDateTime.parse(y.getTime(), DateTimeFormatter.ISO_DATE_TIME), ChronoUnit.SECONDS);
     }
 
     public static double calculateDistance(Location x, Location y) {
@@ -90,69 +90,5 @@ public class ParsingHelper {
         double c = 2 * atan2(sqrt(a), sqrt(1-a));
         return radius * c;
     }
-
-        /*
-    public static Function<Path, List<Route>> waveloParser = path -> {
-        List<String> buffer = new ArrayList<>();
-        List<Route> routes = new ArrayList<>();
-
-        try(Stream<String> stream = Files.lines(path)) {
-            stream.forEach(s -> {
-                if(s.trim().equals("</trkseg>")) {
-                    routes.add(createRoute(buffer));
-                    buffer.clear();
-                }
-                else if(s.trim().contains("trk") || s.trim().startsWith("<time")) {
-                    buffer.add(s);
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return routes;
-    };*/
-
-    /*
-    private static Route createRoute(List<String> list){
-        List<Location> locations = new ArrayList<>();
-        List<String> buffer = new ArrayList<>();
-        for(String s : list) {
-            if(s.contains("</trkpt")) {
-                locations.add(createLocation(buffer));
-                buffer.clear();
-            }
-            else if(s.contains("<trkpt") || s.contains("<time>")) {
-                buffer.add(s);
-            }
-        }
-
-        return new Route(locations);
-    }
-
-    private static Location createLocation(List<String> buffer) {
-        double latitude = getLatitude(buffer.get(0));
-        double longitude = getLongitude(buffer.get(0));
-        LocalDateTime time = getTime(buffer.get(1));
-        return new Location(latitude, longitude, time);
-    }
-
-    private static double getLatitude(String latitude) {
-        int begin = latitude.indexOf("lat=") + 5;
-        int end = latitude.indexOf("\" lon=");
-        return Double.parseDouble(String.format("%.5f", Double.valueOf(latitude.substring(begin, end))));
-    }
-
-
-    private static double getLongitude(String longitude) {
-        int begin = longitude.indexOf("lon=") + 5;
-        int end = longitude.indexOf("\">");
-        return Double.parseDouble(String.format("%.5f", Double.valueOf(longitude.substring(begin, end))));
-    }
-
-    private static LocalDateTime getTime(String time) {
-        int begin = time.indexOf("<time>") + 6;
-        int end = time.indexOf("</time>");
-        return LocalDateTime.parse(time.substring(begin, end), DateTimeFormatter.ISO_DATE_TIME);
-    }*/
 
 }

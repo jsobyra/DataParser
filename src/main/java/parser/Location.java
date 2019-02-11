@@ -1,21 +1,22 @@
 package parser;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 public abstract class Location {
     private int id;
     private double latitude;
     private double longitude;
-    private LocalDateTime time;
+    private String time;
     private double velocity;
     private double acceleration;
 
-    public Location(double latitude, double longitude, LocalDateTime time) {
+    public Location(double latitude, double longitude, String time) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.time = time;
     }
+
+    public Location() {}
 
     public int getId() {
         return id;
@@ -33,7 +34,7 @@ public abstract class Location {
         this.longitude = longitude;
     }
 
-    public void setTime(LocalDateTime time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
@@ -45,7 +46,7 @@ public abstract class Location {
         return longitude;
     }
 
-    public LocalDateTime getTime() {
+    public String getTime() {
         return time;
     }
 

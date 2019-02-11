@@ -1,9 +1,9 @@
 package parser;
 
-import java.time.LocalDateTime;
-
 public class StravaLocation extends Location {
-    public StravaLocation(double latitude, double longitude, LocalDateTime time) {
+    public StravaLocation(double latitude, double longitude, String time) {
         super(latitude, longitude, time);
     }
+
+    public StravaLocation() {super();}
 }

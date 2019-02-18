@@ -10,7 +10,7 @@ public class App {
         String path = options.getFlagValue("path");
 
         PostgresWriter manager = new PostgresWriter();
-        System.out.println("Connecting with database");
+        System.out.println("Connecting with zdatabase");
 
         if(options.containFlag("strava")) {
             System.out.println("Parsing data for Strava");
